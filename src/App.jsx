@@ -138,8 +138,6 @@ export default function App() {
   const [activeColumn, setActiveColumn] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
 
-  console.log("items", items);
-
   return (
     <div
       style={{
