@@ -1,5 +1,5 @@
-import { useSortable } from "@dnd-kit/sortable";
-import React from "react";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import React, { useMemo } from "react";
 import ItemCard from "./ItemCard";
 
 const PriorityContainer = ({ title, id, priority, items, backToColumn }) => {
@@ -12,7 +12,7 @@ const PriorityContainer = ({ title, id, priority, items, backToColumn }) => {
     isDragging,
   } = useSortable({ id: id, data: { type: "Priority", priority } });
 
-  //   const itemsIds = useMemo(() => items.map((item) => item.id), [items]);
+  const itemsIds = useMemo(() => items.map((item) => item.id), [items]);
 
   return (
     <>
@@ -42,18 +42,20 @@ const PriorityContainer = ({ title, id, priority, items, backToColumn }) => {
             gap: "5px",
           }}
         >
-          {items.map((item) => (
-            <ItemCard
-              key={item.id}
-              id={item.id}
-              item={item}
-              backToColumn={(item) => {
-                backToColumn(item);
-              }}
-            >
-              {item.content}
-            </ItemCard>
-          ))}
+          <SortableContext items={itemsIds} id={id}>
+            {items.map((item) => (
+              <ItemCard
+                key={item.id}
+                id={item.id}
+                item={item}
+                backToColumn={(item) => {
+                  backToColumn(item);
+                }}
+              >
+                {item.content}
+              </ItemCard>
+            ))}
+          </SortableContext>
         </div>
       </div>
     </>
