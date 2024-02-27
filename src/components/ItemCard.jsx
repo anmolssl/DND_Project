@@ -1,9 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import React from "react";
 import "./ItemCard.css";
-import { useEffect } from "react";
 
-const ItemCard = ({ id, children, item, backToColumn }) => {
+const ItemCard = ({ id, children, item }) => {
   const {
     attributes,
     listeners,
@@ -12,21 +11,6 @@ const ItemCard = ({ id, children, item, backToColumn }) => {
     transition,
     isDragging,
   } = useSortable({ id, data: { type: "Item", item } });
-
-  let backgroundColor;
-  let borderColor;
-  {
-    if (item.columnIdColor === "Core") {
-      backgroundColor = "lightgreen";
-      borderColor = "green";
-    } else if (item.columnIdColor === "Special") {
-      backgroundColor = "#f3dbdb";
-      borderColor = "red";
-    } else if (item.columnIdColor === "Creative") {
-      backgroundColor = "#fbddfa";
-      borderColor = "#cf39c8";
-    }
-  }
 
   if (isDragging) {
     return (
@@ -40,39 +24,14 @@ const ItemCard = ({ id, children, item, backToColumn }) => {
             ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
             : undefined,
           transition,
-          height: "30px",
-          backgroundColor: backgroundColor,
+          backgroundColor: "lightblue",
           borderRadius: "10px",
-          padding: "0 9px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          padding: "0 8px",
           opacity: 0.5,
-          position: "relative",
+          minHeight: "99px",
         }}
       >
-        <h3 style={{ color: "black" }}>{children}</h3>
-        {item.priorityId !== "none" && (
-          <button
-            style={{
-              height: "20px",
-              width: "20px",
-              padding: "0px",
-              borderRadius: "2px",
-              backgroundColor: "black",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-            }}
-            className="itemCardDeleteBtn"
-            onMouseDown={() => {
-              backToColumn(item);
-            }}
-          >
-            <h6 style={{ margin: 0 }}>X</h6>
-          </button>
-        )}
+        <h3 style={{ color: "black", margin: 0 }}>{children}</h3>
       </div>
     );
   }
@@ -87,41 +46,14 @@ const ItemCard = ({ id, children, item, backToColumn }) => {
           ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
           : undefined,
         transition,
-        height: "30px",
-        backgroundColor: backgroundColor,
-        border: `1px solid ${borderColor}`,
+        backgroundColor: "lightblue",
+        border: `1px solid lightgreen`,
         borderRadius: "6px",
         padding: "0 8px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        position: "relative",
-        minWidth: item.priorityId !== "none" && "280px",
-        maxWidth: item.priorityId === "none" && "fit-content",
+        minHeight: "99px",
       }}
     >
-      <h3 style={{ color: "black" }}>{children}</h3>
-      {item.priorityId !== "none" && (
-        <button
-          style={{
-            height: "20px",
-            width: "20px",
-            padding: "0px",
-            borderRadius: "2px",
-            backgroundColor: "black",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-          }}
-          className="itemCardDeleteBtn"
-          onMouseDown={() => {
-            backToColumn(item);
-          }}
-        >
-          <h6 style={{ margin: 0 }}>X</h6>
-        </button>
-      )}
+      <h3 style={{ color: "black", margin: 0 }}>{children}</h3>
     </div>
   );
 };

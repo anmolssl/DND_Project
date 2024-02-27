@@ -1,35 +1,23 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 
 import ColumnContainer from "./components/ColumnContainer";
 import { createPortal } from "react-dom";
 import ItemCard from "./components/ItemCard";
-import PriorityContainer from "./components/PriorityContainer";
 
 const defColumns = [
   {
-    id: "Core",
-    title: "Core",
+    id: "toDo",
+    title: "Open",
   },
   {
-    id: "Special",
-    title: "Special",
+    id: "inProgress",
+    title: "In Progress",
   },
   {
-    id: "Creative",
-    title: "Creative",
-  },
-];
-
-const defPriorites = [
-  {
-    id: "SchoolPriority",
-    title: "School Priority",
-  },
-  {
-    id: "HomePriority",
-    title: "Home Priority",
+    id: "completed",
+    title: "Completed",
   },
 ];
 
@@ -37,101 +25,73 @@ const defItems = [
   {
     id: 1,
     content: "Finance & Entrepreneurship",
-    columnId: "Core",
-    columnIdColor: "Core",
-    priorityId: "none",
+    columnId: "toDo",
   },
   {
     id: 2,
     content: "Maths",
-    columnId: "Core",
-    columnIdColor: "Core",
-    priorityId: "none",
+    columnId: "toDo",
   },
   {
     id: 3,
     content: "Commerce",
-    columnId: "Core",
-    columnIdColor: "Core",
-    priorityId: "none",
+    columnId: "toDo",
   },
   {
     id: 4,
     content: "Science",
-    columnId: "Core",
-    columnIdColor: "Core",
-    priorityId: "none",
+    columnId: "toDo",
   },
   {
     id: 5,
     content: "Language & Communication",
-    columnId: "Core",
-    columnIdColor: "Core",
-    priorityId: "none",
+    columnId: "toDo",
   },
   {
     id: 6,
     content: "Space Tech",
-    columnId: "Special",
-    columnIdColor: "Special",
-    priorityId: "none",
+    columnId: "inProgress",
   },
   {
     id: 7,
     content: "Robotics",
-    columnId: "Special",
-    columnIdColor: "Special",
-    priorityId: "none",
+    columnId: "inProgress",
   },
   {
     id: 8,
     content: "Electronics",
-    columnId: "Special",
-    columnIdColor: "Special",
-    priorityId: "none",
+    columnId: "inProgress",
   },
   {
     id: 9,
     content: "Graphic Novel",
-    columnId: "Creative",
-    columnIdColor: "Creative",
-    priorityId: "none",
+    columnId: "completed",
   },
   {
     id: 10,
     content: "Yoga",
-    columnId: "Creative",
-    columnIdColor: "Creative",
-    priorityId: "none",
+    columnId: "completed",
   },
   {
     id: 11,
     content: "Music",
-    columnId: "Creative",
-    columnIdColor: "Creative",
-    priorityId: "none",
+    columnId: "completed",
   },
   {
     id: 12,
     content: "Dance",
-    columnId: "Creative",
-    columnIdColor: "Creative",
-    priorityId: "none",
+    columnId: "completed",
   },
   {
     id: 13,
     content: "Guitar",
-    columnId: "Creative",
-    columnIdColor: "Creative",
-    priorityId: "none",
+    columnId: "completed",
   },
 ];
 
 export default function App() {
   const [columns, setColumns] = useState(defColumns);
   const columnsIds = useMemo(() => columns.map((col) => col.id), [columns]);
-
-  const [priorities, setPriorities] = useState(defPriorites);
 
   const [items, setItems] = useState(defItems);
 
@@ -157,7 +117,6 @@ export default function App() {
       >
         <div
           style={{
-            height: 700,
             width: "auto",
             // padding: 20,
             backgroundColor: "#e1f1f5",
@@ -169,57 +128,16 @@ export default function App() {
             borderRadius: "8px",
           }}
         >
-          <div style={{ padding: "10px 14px", backgroundColor: "#2232a9" }}>
-            <h3 style={{ color: "white", margin: 0 }}>School Level</h3>
-          </div>
-          <div
-            style={{
-              padding: "5px 10px",
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: "#61b742",
-                height: "120px",
-                width: "240px",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                padding: "5px 10px",
-                justifyContent: "space-between",
-              }}
-              onClick={() => {
-                console.log("hello");
-              }}
-            >
-              <h2>Level 0</h2>
-              <h2> {"-->"} </h2>
-            </div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            height: 700,
-            width: "auto",
-            // padding: 20,
-            backgroundColor: "#e1f1f5",
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            overflowX: "auto",
-            overflowY: "hidden",
-            borderRadius: "8px",
-          }}
-        >
-          <div style={{ padding: "10px 14px", backgroundColor: "#2232a9" }}>
-            <h3 style={{ color: "white", margin: 0 }}>Skills Selected</h3>
+          <div style={{ padding: "10px 14px", backgroundColor: "#0079bf" }}>
+            <h2 style={{ color: "white", margin: 0, textAlign: "center" }}>
+              Kanban Board
+            </h2>
           </div>
           <div
             style={{
               padding: "5px 10px",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               gap: "10px",
             }}
           >
@@ -234,52 +152,6 @@ export default function App() {
                 />
               ))}
             </SortableContext>
-          </div>
-        </div>
-
-        <div
-          style={{
-            height: 700,
-            width: "auto",
-            // padding: 20,
-            backgroundColor: "#e1f1f5",
-            display: "flex",
-            flexDirection: "column",
-            overflowX: "auto",
-            overflowY: "hidden",
-            borderRadius: "8px",
-          }}
-        >
-          <div style={{ padding: "10px 14px", backgroundColor: "#2232a9" }}>
-            <h3 style={{ color: "white", margin: 0 }}>Set Skill Priority</h3>
-          </div>
-          <div
-            style={{
-              padding: "10px",
-              flex: "1",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around",
-            }}
-          >
-            <PriorityContainer
-              title={priorities[0].title}
-              id={priorities[0].id}
-              priority={priorities[0]}
-              items={items.filter(
-                (item) => item.priorityId === priorities[0].id
-              )}
-              backToColumn={backToColumn}
-            />
-            <PriorityContainer
-              title={priorities[1].title}
-              id={priorities[1].id}
-              priority={priorities[1]}
-              items={items.filter(
-                (item) => item.priorityId === priorities[1].id
-              )}
-              backToColumn={backToColumn}
-            />
           </div>
         </div>
 
@@ -306,21 +178,6 @@ export default function App() {
       </DndContext>
     </div>
   );
-
-  function backToColumn(item) {
-    setItems((items) => {
-      const activeIndex = items.findIndex((i) => i.id === item.id);
-
-      // const newItems = items;
-      // newItems[activeIndex].priorityId = null;
-      // newItems[activeIndex].columnId = item.columnIdColor;
-      items[activeIndex].columnId = item.columnIdColor;
-      items[activeIndex].priorityId = "none";
-      return items;
-
-      // return arrayMove(newItems, activeIndex, 0);
-    });
-  }
 
   function onDragStart(event) {
     if (event.active.data.current?.type === "Item") {
@@ -354,17 +211,7 @@ export default function App() {
         const overIndex = items.findIndex((item) => item.id === overId);
 
         if (items[activeIndex].columnId != items[overIndex].columnId) {
-          if (items[activeIndex].priorityId != "none") {
-            if (items[activeIndex].columnIdColor == items[overIndex].columnId) {
-              items[activeIndex].priorityId = "none";
-              items[activeIndex].columnId = items[overIndex].columnId;
-            }
-          }
-          return arrayMove(items, activeIndex, overIndex - 1);
-        }
-
-        if (items[activeIndex].priorityId != items[overIndex].priorityId) {
-          items[activeIndex].priorityId = items[overIndex].priorityId;
+          items[activeIndex].columnId = items[overIndex].columnId;
           return arrayMove(items, activeIndex, overIndex - 1);
         }
 
@@ -378,22 +225,8 @@ export default function App() {
       setItems((items) => {
         const activeIndex = items.findIndex((item) => item.id === activeId);
 
-        if (items[activeIndex].columnIdColor == over.id) {
-          items[activeIndex].priorityId = "none";
-          items[activeIndex].columnId = over.id;
-        }
-        return arrayMove(items, activeIndex, activeIndex);
-      });
-    }
+        items[activeIndex].columnId = over.id;
 
-    const isOverAPriority = over.data.current?.type === "Priority";
-
-    if (isActiveAnItem && isOverAPriority) {
-      setItems((items) => {
-        const activeIndex = items.findIndex((item) => item.id === activeId);
-
-        items[activeIndex].columnId = "none";
-        items[activeIndex].priorityId = over.id;
         return arrayMove(items, activeIndex, activeIndex);
       });
     }
@@ -422,16 +255,6 @@ export default function App() {
         const newIndex = columns.findIndex((col) => col.id === over.id);
 
         return arrayMove(columns, oldIndex, newIndex);
-      });
-      setPriorities((priorities) => {
-        const oldIndex = priorities.findIndex(
-          (priority) => priority.id === active.id
-        );
-        const newIndex = priorities.findIndex(
-          (priority) => priority.id === over.id
-        );
-
-        return arrayMove(priorities, oldIndex, newIndex);
       });
     }
   }

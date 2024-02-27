@@ -25,10 +25,12 @@ export default function ColumnContainer({ id, title, column, items }) {
           transition,
           backgroundColor: "lightblue",
           width: "400px",
+          height: "500px",
           display: "flex",
           flexDirection: "column",
           padding: "10px",
           opacity: 0.5,
+          borderRadius: "8px",
         }}
         {...attributes}
         {...listeners}
@@ -43,20 +45,17 @@ export default function ColumnContainer({ id, title, column, items }) {
           >
             {title}
           </h2>
-          <p style={{ margin: "0", color: "blue" }}>(Level 0)</p>
         </div>
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
+            flexDirection: "column",
             backgroundColor: "white",
-            gap: "10px",
-            border: "1px solid black",
+            gap: "5px",
+            borderRadius: "8px",
             padding: "10px",
-            borderRadius: "20px",
             overflowY: "auto",
-            maxHeight: "500px",
+            flex: 1,
           }}
         >
           {items.map((item) => (
@@ -79,6 +78,7 @@ export default function ColumnContainer({ id, title, column, items }) {
         transition,
         backgroundColor: "lightblue",
         width: "400px",
+        height: "500px",
         display: "flex",
         flexDirection: "column",
         padding: "10px",
@@ -93,22 +93,17 @@ export default function ColumnContainer({ id, title, column, items }) {
         >
           {title}
         </h2>
-        <p style={{ margin: "0", color: "blue" }}>(Level 0)</p>
       </div>
       <div
         style={{
           display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          flexFlow: "wrap",
-          gap: "5px",
+          flexDirection: "column",
           backgroundColor: "white",
           gap: "10px",
           padding: "10px",
           borderRadius: "8px",
           overflowY: "auto",
-          maxHeight: "200px",
-          minHeight: "50px",
+          flex: 1,
         }}
       >
         <SortableContext items={itemsIds} id={id}>
